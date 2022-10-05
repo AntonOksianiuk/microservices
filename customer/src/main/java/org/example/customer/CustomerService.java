@@ -1,13 +1,15 @@
 package org.example.customer;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
+@AllArgsConstructor
 public class CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+    private final RestTemplate restTemplate;
 
     public void register(CustomerRequest request) {
         Customer customer = Customer.builder()
@@ -16,6 +18,14 @@ public class CustomerService {
                 .email(request.getEmail())
                 .build();
 
-        customerRepository.save(customer);
+        // todo: check if customer is fraudster
+        customerRepository.saveAndFlush(customer);
+
+        FraudCheckResponse fraudCheckResponse =
+                restTemplate.getForObject("http://localhost:8081/api/v1/fraud-check/{customerId}",
+                        FraudCheckResponse.class, customer.getId());
+
+
+        // todo: send notofication
     }
 }
