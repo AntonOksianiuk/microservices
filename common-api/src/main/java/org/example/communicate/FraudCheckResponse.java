@@ -1,4 +1,4 @@
-package org.example.customer;
+package org.example.communicate;
 
 
 import lombok.AllArgsConstructor;

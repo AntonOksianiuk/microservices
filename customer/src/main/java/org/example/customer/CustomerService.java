@@ -1,6 +1,7 @@
 package org.example.customer;
 
 import lombok.AllArgsConstructor;
+import org.example.communicate.FraudCheckResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
