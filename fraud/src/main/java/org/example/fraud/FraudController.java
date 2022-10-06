@@ -2,6 +2,7 @@ package org.example.fraud;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.communicate.FraudCheckResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,10 +14,9 @@ public class FraudController {
     private final FraudCheckHistoryService fraudCheckHistoryService;
 
     @GetMapping(path = "{customerId}")
-    public boolean isFraudster(
+    public FraudCheckResponse isFraudster(
             @PathVariable("customerId") Integer customerId) {
-        boolean isFraudulent = fraudCheckHistoryService.isFraudulentCustomer(customerId);
         log.info("fraud check request for customer {}", customerId);
-        return isFraudulent;
+        return fraudCheckHistoryService.isFraudulentCustomer(customerId);
     }
 }
