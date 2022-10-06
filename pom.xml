@@ -12,6 +12,7 @@
     <modules>
         <module>customer</module>
         <module>fraud</module>
+        <module>eureka-server</module>
     </modules>
 
     <properties>
@@ -19,6 +20,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <spring.boot.maven.pluguin.version>2.5.7</spring.boot.maven.pluguin.version>
         <spring.boot.dependency.version>2.5.7</spring.boot.dependency.version>
+        <spring.cloud-version>2020.0.3</spring.cloud-version>
     </properties>
 
     <dependencyManagement>
@@ -29,6 +31,14 @@
                 <version>${spring.boot.dependency.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -43,7 +53,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
