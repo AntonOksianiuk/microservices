@@ -11,5 +11,8 @@
         <module name="customer" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="fraud" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
