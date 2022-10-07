@@ -15,6 +15,7 @@
         <module>eureka-server</module>
         <module>common-api</module>
         <module>clients</module>
+        <module>notification</module>
     </modules>
 
     <properties>

@@ -2,6 +2,7 @@ package org.example.fraud;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.clients.fraud.FraudClient;
 import org.example.communicate.FraudCheckResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/fraud-check")
 @AllArgsConstructor
 @Slf4j
-public class FraudController {
+public class FraudController implements FraudClient {
 
     private final FraudCheckHistoryService fraudCheckHistoryService;
 
