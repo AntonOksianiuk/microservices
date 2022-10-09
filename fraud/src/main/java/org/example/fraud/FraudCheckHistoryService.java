@@ -1,6 +1,7 @@
 package org.example.fraud;
 
 import lombok.AllArgsConstructor;
+import org.example.communicate.FraudCheckResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ public class FraudCheckHistoryService {
 
     private final FraudCheckHistoryRepository fraudCheckHistoryRepository;
 
-    public boolean isFraudulentCustomer(Integer customerId) {
+    public FraudCheckResponse isFraudulentCustomer(Integer customerId) {
         fraudCheckHistoryRepository.save(
                 FraudCheckHistory.builder()
                         .customerId(customerId)
@@ -19,6 +20,6 @@ public class FraudCheckHistoryService {
                         .createdAt(LocalDateTime.now())
                         .build()
         );
-        return false;
+        return new FraudCheckResponse(false);
     }
 }

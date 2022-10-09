@@ -1,15 +1,19 @@
 package org.example.customer;
 
 import lombok.AllArgsConstructor;
+import org.example.clients.fraud.FraudClient;
+import org.example.clients.notification.NotificationClient;
+import org.example.communicate.FraudCheckResponse;
+import org.example.communicate.Notification;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @AllArgsConstructor
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final RestTemplate restTemplate;
+    private final FraudClient fraudClient;
+    private final NotificationClient notificationClient;
 
     public void register(CustomerRequest request) {
         Customer customer = Customer.builder()
@@ -22,10 +26,13 @@ public class CustomerService {
         customerRepository.saveAndFlush(customer);
 
         FraudCheckResponse fraudCheckResponse =
-                restTemplate.getForObject("http://localhost:8081/api/v1/fraud-check/{customerId}",
-                        FraudCheckResponse.class, customer.getId());
+                fraudClient.isFraudster(customer.getId());
 
+        if (fraudCheckResponse.isFraudulent()) {
+            throw new IllegalStateException("fraudster");
+        }
 
-        // todo: send notofication
+        // todo: send notification
+        notificationClient.sendNotification(new Notification(customer.getId(), fraudCheckResponse.isFraudulent()));
     }
 }
