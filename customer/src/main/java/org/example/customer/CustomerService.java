@@ -1,6 +1,7 @@
 package org.example.customer;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.clients.fraud.FraudClient;
 import org.example.clients.notification.NotificationClient;
 import org.example.communicate.FraudCheckResponse;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
@@ -33,6 +35,7 @@ public class CustomerService {
         }
 
         // todo: send notification
+        log.info("new notification, customerId = " + customer.getId() + ", fraudResponse = " + fraudCheckResponse.isFraudulent());
         notificationClient.sendNotification(new Notification(customer.getId(), fraudCheckResponse.isFraudulent()));
     }
 }
