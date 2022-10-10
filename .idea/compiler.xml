@@ -11,6 +11,7 @@
         <module name="clients" />
         <module name="eureka-server" />
         <module name="fraud" />
+        <module name="amqp" />
         <module name="customer" />
       </profile>
       <profile name="Annotation profile for notification" enabled="true">
