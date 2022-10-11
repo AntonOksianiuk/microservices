@@ -26,6 +26,7 @@
         <spring.boot.maven.pluguin.version>2.5.7</spring.boot.maven.pluguin.version>
         <spring.boot.dependency.version>2.5.7</spring.boot.dependency.version>
         <spring.cloud-version>2020.0.3</spring.cloud-version>
+        <image>antonoksenyuk/${project.artifactId}:${project.version}</image>
     </properties>
 
     <dependencyManagement>
@@ -72,9 +73,51 @@
                    <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.maven.pluguin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <configuration>
+                        <from>
+                            <image>eclipse-temurin:11@sha256:1c87e779b0c3c3f9aa04bbd73add150daca33247c61d1ae4e96f663d4c47ad6b</image>
+                        </from>
+                        <to>
+                            <tags>
+                                <tag>latest</tag>
+                            </tags>
+                        </to>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

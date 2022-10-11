@@ -17,6 +17,9 @@ spring:
       ddl-auto: create-drop
     show-sql: true
 
+  rabbitmq:
+    addresses: localhost:5672
+
   zipkin:
     base-url: http://localhost:9411
 
@@ -30,7 +33,7 @@ service:
 rabbitmq:
   exchanges:
     internal: internal.exchange
-  queue:
+  queues:
     notification: notification.queue
   routing-keys:
     internal-notification: internal.notification.routing-key

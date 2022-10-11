@@ -7,12 +7,27 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>notification</artifactId>
-    <name>notification Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+    <name>notification</name>
+
+    <packaging>jar</packaging>
 
     <properties>
         <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>build-docker-image</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 
     <dependencies>
@@ -89,7 +104,7 @@
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>amqp</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
@@ -99,6 +114,12 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

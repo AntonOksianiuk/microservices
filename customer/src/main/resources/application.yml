@@ -17,6 +17,9 @@ spring:
       ddl-auto: update
     show-sql: 'true'
 
+  rabbitmq:
+    addresses: localhost:5672
+
 service:
   client:
     service-url:
